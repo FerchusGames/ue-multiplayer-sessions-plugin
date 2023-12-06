@@ -32,17 +32,29 @@ protected:
 	// Internal callbacks for the delegates we'll add to the Online Session Interface delegate list.
 	// These don't need to be called outside of this class.
 	//
+	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+	void OnFindSessionsComplete(bool bWasSuccessful);
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+	void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);
+	void OnStartSessionComplete(FName SessionName, bool bWasSuccessful);
 	
 private:
 	IOnlineSessionPtr SessionInterface;
 
+	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+	
 	//
 	// To add to the Online Session Interface list.
 	// We'll bind our MultiplayerSessionsSubsystem internal callbacks to these.
 	//
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
+	FDelegateHandle CreateSessionCompleteDelegateHandle;
 	FOnFindSessionsCompleteDelegate FindSessionsCompleteDelegate;
+	FDelegateHandle FindSessionsCompleteDelegateHandle;
 	FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
+	FDelegateHandle JoinSessionCompleteDelegateHandle;
 	FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;
+	FDelegateHandle DestroySessionCompleteDelegateHandle;
 	FOnStartSessionCompleteDelegate StartSessionCompleteDelegate;
+	FDelegateHandle StartSessionCompleteDelegateHandle;
 };
